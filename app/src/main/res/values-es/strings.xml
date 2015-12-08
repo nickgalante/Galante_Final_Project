@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Información de la App</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="title_activity_search">Hola Mundo</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="dialog_title">Dialog</string>
+    <string name="yes">Añadir a la cartera</string>
+    <string name="no">cancelar</string>
+    <string name="view_quote">Ver</string>
+    <string name="searchHint">Buscar...</string>
+
+    <string name="current_price">Precio actual: </string>
+    <string name="Percent_change">Cambio porcentual: </string>
+    <string name="Opening_Price">Apertura Precio: </string>
+    <string name="volume">Volumen: </string>
+
+    <string name="oneDay">1 Día</string>
+    <string name="fiveDays">5 días</string>
+    <string name="oneMonth">1 Mes</string>
+    <string name="sixMonths">6 meses</string>
+    <string name="oneYear">1 Año</string>
+</resources>
