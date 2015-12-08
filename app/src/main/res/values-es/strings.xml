@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Información de la App</string>
+    <string name="Delete_Title">Seleccione Acciones para Eliminar</string>
 
     <string name="hello_world">Hello world!</string>
+
+    <string name="deleteButton">eliminar Stocks</string>
 
     <string name="title_activity_search">Hola Mundo</string>
     <string name="action_settings">Ajustes</string>

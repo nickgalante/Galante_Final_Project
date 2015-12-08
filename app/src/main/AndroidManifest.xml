@@ -25,8 +25,8 @@
         <service android:name=".QuoteService" />
 
         <activity
-            android:name=".searchActivity"
-            android:label="@string/title_activity_search" >
+            android:name=".DeleteActivity"
+            android:label="@string/Delete_Title" >
         </activity>
     </application>
 

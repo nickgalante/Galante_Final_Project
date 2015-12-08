@@ -4,26 +4,13 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends Activity implements Portfolio_fragment.OnFragmentInteractionListener {
 
@@ -55,7 +42,7 @@ public class MainActivity extends Activity implements Portfolio_fragment.OnFragm
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -70,8 +57,8 @@ public class MainActivity extends Activity implements Portfolio_fragment.OnFragm
         if (id == R.id.action_settings) {
             return true;
         }
-        if (id == R.id.search) {
-            Intent launchActivityIntent = new Intent(MainActivity.this, searchActivity.class);
+        if (id == R.id.delete) {
+            Intent launchActivityIntent = new Intent(MainActivity.this, DeleteActivity.class);
             startActivity(launchActivityIntent);
         }
 

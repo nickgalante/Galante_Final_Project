@@ -34,15 +34,14 @@ public class QuoteService extends Service {
     @Override
     public int onStartCommand (Intent intent, int flags, int startId){
 
-    Log.d("Started", "service");
         mDbHelper = new StockDBHelper(this);
 
         //Bundle extra = intent.getBundleExtra("stock_symbols");
         //ArrayList<String> stocks = (ArrayList<String>) extra.getSerializable("objects");
         //Log.d("stocks in service", stocks.get(1).toString());
-        ArrayList<String> stocks = new ArrayList<String>();
-        stocks = getStocks();
-        getQuote(stocks);
+        //ArrayList<String> stocks = new ArrayList<String>();
+        //stocks = getStocks();
+        getQuote();
 
         return START_STICKY;
     }
@@ -54,7 +53,7 @@ public class QuoteService extends Service {
         //startForeground();
     }
 
-    public void getQuote(final ArrayList<String> stocks) {
+    public void getQuote() {
         //timer.scheduleAtFixedRate(new mainTask(), 0, 5000);
 
         final ArrayList<String> JSONResponse = new ArrayList();
@@ -68,6 +67,11 @@ public class QuoteService extends Service {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
+                    ArrayList<String> stocks = new ArrayList<String>();
+                    stocks = getStocks();
+
+
 
                     URL stockQuoteUrl;
 

@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -67,7 +68,7 @@ public class Portfolio_fragment extends Fragment {
                 ArrayList<String> mList;
                 mList = intent.getStringArrayListExtra("stock_data");
                 for (int i = 0; i < mList.size(); i++) {
-                    Log.d("Broadcast", mList.get(i).toString());
+                    //Log.d("Broadcast", mList.get(i).toString());
 
                     try {
                         Stock displayStock = new Stock(
@@ -83,10 +84,9 @@ public class Portfolio_fragment extends Fragment {
                                 .getJSONObject("fields")
                                 .getDouble("price"));
 
-                        Log.d("display Stock", displayStock.getSymbol().toString() + displayStock.getName().toString() + String.valueOf(displayStock.getPrice()));
+                        //Log.d("display Stock", displayStock.getSymbol().toString() + displayStock.getName().toString() + String.valueOf(displayStock.getPrice()));
 
                         updateData(displayStock.getSymbol(), displayStock.getName(), displayStock.getPrice());
-
 
 
                     } catch (JSONException e) {
@@ -328,7 +328,12 @@ public class Portfolio_fragment extends Fragment {
 
         if (newRowId > 0) {
             Log.d("Stock data updated ", newRowId + " - " + company);
-            populateListView();
+            SimpleCursorAdapter adapter = (SimpleCursorAdapter) stockList.getAdapter();
+            Cursor cursor = db.query(StockDBContract.StockEntry.TABLE_NAME, new String[]{"_id", StockDBContract.StockEntry.COLUMN_NAME_SYMBOL, StockDBContract.StockEntry.COLUMN_NAME_PRICE}, null, null, null, null, null);
+
+            adapter.changeCursor(cursor);
+            //((BaseAdapter) stockList.getAdapter()).notifyDataSetChanged();
+            //populateListView();
         }
 
     }

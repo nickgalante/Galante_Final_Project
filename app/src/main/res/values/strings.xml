@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Stock Information App</string>
+    <string name="Delete_Title">Select Stocks to Delete</string>
 
     <string name="hello_world">Hello world!</string>
+
+    <string name="deleteButton">Delete Stocks</string>
 
     <string name="title_activity_search">Hello world!</string>
     <string name="action_settings">Settings</string>
