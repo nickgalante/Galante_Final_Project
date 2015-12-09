@@ -68,8 +68,6 @@ public class Portfolio_fragment extends Fragment {
                 ArrayList<String> mList;
                 mList = intent.getStringArrayListExtra("stock_data");
                 for (int i = 0; i < mList.size(); i++) {
-                    //Log.d("Broadcast", mList.get(i).toString());
-
                     try {
                         Stock displayStock = new Stock(
                                 new JSONObject(mList.get(i).toString()).getJSONObject("list")
@@ -84,10 +82,7 @@ public class Portfolio_fragment extends Fragment {
                                 .getJSONObject("fields")
                                 .getDouble("price"));
 
-                        //Log.d("display Stock", displayStock.getSymbol().toString() + displayStock.getName().toString() + String.valueOf(displayStock.getPrice()));
-
                         updateData(displayStock.getSymbol(), displayStock.getName(), displayStock.getPrice());
-
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -118,14 +113,14 @@ public class Portfolio_fragment extends Fragment {
         filter.addAction("ACTION_BROADCAST_QUOTE");
         getActivity().registerReceiver(receiver, filter);
 
-
+        //Populate the portfolio list
         db = mDbHelper.getReadableDatabase();
         Cursor cursor = db.query(StockDBContract.StockEntry.TABLE_NAME, new String[]{"_id", StockDBContract.StockEntry.COLUMN_NAME_SYMBOL, StockDBContract.StockEntry.COLUMN_NAME_PRICE}, null, null, null, null, null);
         final SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(), R.layout.db_layout, cursor, new String[]{StockDBContract.StockEntry.COLUMN_NAME_SYMBOL, StockDBContract.StockEntry.COLUMN_NAME_PRICE}, new int[]{R.id.symbol, R.id.price}, 0);
         stockList = ((ListView) view.findViewById(R.id.stock_list));
         stockList.setAdapter(adapter);
 
-
+        //Autocomplete view
         acTextView = (AutoCompleteTextView) view.findViewById(R.id.autoComplete);
         acTextView.setAdapter(new SuggestionAdapter(getActivity(), acTextView.getText().toString()));
 
@@ -136,22 +131,8 @@ public class Portfolio_fragment extends Fragment {
             Log.d("Stock in list", item.getString(1));
         }
 
-
-
-        /*for (int j = 0; j < stockList.getAdapter().getCount(); j++) {
-            Cursor item = (Cursor) adapter.getItem(j);
-            LinearLayout text = (LinearLayout) stockList.getChildAt(j);
-            text.setBackgroundColor(Color.parseColor("#bdbdbd"));
-            Log.d("Stock in list", item.getString(1));
-        }*/
-
-
-
-        //Bundle extra = new Bundle();
-        //extra.putSerializable("objects", stocks);
-
+        //Starting the Service
         Intent serviceIntent = new Intent(getActivity(), QuoteService.class);
-        //serviceIntent.putExtra("stock_symbols", extra);
         if (serviceRunning == false) {
             getActivity().startService(serviceIntent);
             serviceRunning = true;
@@ -174,7 +155,7 @@ public class Portfolio_fragment extends Fragment {
 
         });
 
-
+        //View Quote Details
         view.findViewById(R.id.quoteButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -263,10 +244,6 @@ public class Portfolio_fragment extends Fragment {
                 acTextView.setText("");
 
 
-                //Toast.makeText(getActivity(), stock.getName().toString() + " $" + String.valueOf(stock.getPrice()) + " " + stock.getSymbol().toString(), Toast.LENGTH_SHORT).show();
-                //Log.d("Price", String.valueOf(stock.getPrice()));
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -277,6 +254,7 @@ public class Portfolio_fragment extends Fragment {
     });
 
 
+    //Saving Stocks to the database
     private void saveData(String symbol, String company, double price) {
 
         // Gets the data repository in write mode
@@ -308,6 +286,7 @@ public class Portfolio_fragment extends Fragment {
 
     }
 
+    //Updating the Database
     private void updateData(String symbol, String company, double price) {
 
         // Gets the data repository in write mode
@@ -330,10 +309,8 @@ public class Portfolio_fragment extends Fragment {
             Log.d("Stock data updated ", newRowId + " - " + company);
             SimpleCursorAdapter adapter = (SimpleCursorAdapter) stockList.getAdapter();
             Cursor cursor = db.query(StockDBContract.StockEntry.TABLE_NAME, new String[]{"_id", StockDBContract.StockEntry.COLUMN_NAME_SYMBOL, StockDBContract.StockEntry.COLUMN_NAME_PRICE}, null, null, null, null, null);
-
             adapter.changeCursor(cursor);
-            //((BaseAdapter) stockList.getAdapter()).notifyDataSetChanged();
-            //populateListView();
+
         }
 
     }

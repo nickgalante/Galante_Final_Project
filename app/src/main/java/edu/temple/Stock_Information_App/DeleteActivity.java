@@ -47,7 +47,6 @@ public class DeleteActivity extends Activity {
         mDbHelper = new StockDBHelper(this);
 
         ArrayList<String> stocks = new ArrayList<String>();
-        //stocksDelete = new ArrayList<String>();
         stocks = getStocks();
         stockList = ((ListView) findViewById(R.id.stockList));
         stockList.setAdapter(new DeleteAdapter(this, stocks.size(), stocks));
@@ -128,10 +127,7 @@ public class DeleteActivity extends Activity {
 
         if (newRowId > 0) {
             Log.d("Stock data Deleted ", newRowId + " - " + symbol);
-            //SimpleCursorAdapter adapter = (SimpleCursorAdapter) stockList.getAdapter();
-            //Cursor cursor = db.query(StockDBContract.StockEntry.TABLE_NAME, new String[]{"_id", StockDBContract.StockEntry.COLUMN_NAME_SYMBOL, StockDBContract.StockEntry.COLUMN_NAME_PRICE}, null, null, null, null, null);
 
-            //adapter.changeCursor(cursor);
         }
 
     }

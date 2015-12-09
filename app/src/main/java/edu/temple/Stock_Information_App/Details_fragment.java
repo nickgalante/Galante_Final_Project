@@ -56,7 +56,6 @@ public class Details_fragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-
     }
 
     @Override
@@ -66,6 +65,7 @@ public class Details_fragment extends Fragment {
 
         Bundle bundle = this.getArguments();
         final View v;
+
         if (bundle != null) {
             if (bundle.containsKey("symbol")) {
                 v = inflater.inflate(R.layout.fragment_details, container, false);
@@ -77,7 +77,6 @@ public class Details_fragment extends Fragment {
             v = inflater.inflate(R.layout.fragment_news, container, false);
             Log.d("Fragment", "news NO ARGUMENTS");
         }
-
 
 
         stockTitle = (TextView) v.findViewById(R.id.companyName);
@@ -127,14 +126,13 @@ public class Details_fragment extends Fragment {
                 }
             });
 
+            //GENERATE NEWS FEED
             String newsURL = "http://finance.yahoo.com/rss/headline?s=" + stockSymbol;
             final HandleXML obj;
             obj = new HandleXML(newsURL);
             obj.fetchXML();
             while (obj.parsingComplete) ;
-            /*for (int i = 0; i < obj.getNewsList().size(); i++) {
-                Log.d("Tag", obj.getNewsList().get(i).getTitle());
-            }*/
+
             LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.newsHolder);
 
             final TextView tv[] = new TextView[obj.getNewsList().size()];
@@ -145,7 +143,6 @@ public class Details_fragment extends Fragment {
                 public void onClick(View v) {
                     final int id = v.getId();
                     Log.d("clicked", Integer.toString(id));
-                    //obj.getNewsList().get(id).getLink();
                     Log.d("clicked", obj.getNewsList().get(id).getLink());
                     Uri uriUrl = Uri.parse(obj.getNewsList().get(id).getLink());
                     Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
@@ -165,7 +162,7 @@ public class Details_fragment extends Fragment {
 
             }
 
-
+            //GET STOCK QUITE INFORMATION
             Thread t = new Thread() {
                 @Override
                 public void run() {
@@ -214,9 +211,7 @@ public class Details_fragment extends Fragment {
             obj = new HandleXML(newsURL);
             obj.fetchXML();
             while (obj.parsingComplete) ;
-            /*for (int i = 0; i < obj.getNewsList().size(); i++) {
-                Log.d("Tag", obj.getNewsList().get(i).getTitle());
-            }*/
+
             LinearLayout linearLayout = (LinearLayout) v.findViewById(R.id.newsHolder);
 
             final TextView tv[] = new TextView[obj.getNewsList().size()];
@@ -250,7 +245,7 @@ public class Details_fragment extends Fragment {
         return v;
 
     }
-
+    //POPULATE STOCK QUOTE INFORMATION IN DETAILS FRAGMENT
     Handler stockResponseHandler = new Handler(new Handler.Callback() {
 
         @Override
@@ -303,7 +298,6 @@ public class Details_fragment extends Fragment {
 
                 stockTitle.setText(stock.getName().toString());
 
-                //Toast.makeText(getActivity(), stock.getName().toString() + " $" + String.valueOf(stock.getPrice()) + " " + stock.getSymbol().toString(), Toast.LENGTH_SHORT).show();
 
             } catch (Exception e) {
                 e.printStackTrace();
